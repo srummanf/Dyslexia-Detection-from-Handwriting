@@ -83,7 +83,8 @@ def perform_object_detection(image):
         detections = model(image)
 
         # Apply non-maximum suppression to get the most confident predictions
-        detections = non_max_suppression(detections, conf_thres=0.5, iou_thres=0.5)
+        detections = non_max_suppression(detections, conf_thres=0.3, iou_thres=0.5)
+        print(detections)
 
         return detections
     except Exception as e:
