@@ -23,6 +23,8 @@ data/yolo_cls/
 data/features/*.csv
 notebooks/*executed*.ipynb
 legacy/archive/
+data/vocab/*
+data/samples/*
 
 models/**/*.pt
 models/**/*.onnx

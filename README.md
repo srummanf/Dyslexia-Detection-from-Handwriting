@@ -14,11 +14,12 @@ codebase, offline inference, and current models.
 
 `DyslexiaScreener` blends up to three independent signals into one risk score:
 
-| Signal | Model | Input |
-|---|---|---|
-| **Linguistic** | Calibrated gradient-boosting / random-forest classifier | 4 features from OCR'd text: spelling accuracy, grammatical accuracy, % corrections needed, phonetic accuracy |
-| **Whole-sample** | YOLO11n-cls (transfer-learned) | the full handwriting image |
-| **Per-letter** *(optional)* | ConvNeXt-Tiny on the Gambo *Dyslexia Handwriting Dataset* | individual letter crops → Normal / Reversal / Corrected |
+
+| Signal                      | Model                                                    | Input                                                                                                        |
+| ----------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Linguistic**              | Calibrated gradient-boosting / random-forest classifier  | 4 features from OCR'd text: spelling accuracy, grammatical accuracy, % corrections needed, phonetic accuracy |
+| **Whole-sample**            | YOLO11n-cls (transfer-learned)                           | the full handwriting image                                                                                   |
+| **Per-letter** *(optional)* | ConvNeXt-Tiny on the Gambo*Dyslexia Handwriting Dataset* | individual letter crops → Normal / Reversal / Corrected                                                     |
 
 Blend weights live in `config.yaml`. If a model or its dependencies are missing,
 that signal is dropped and the remaining weights are renormalised — the app
@@ -99,7 +100,3 @@ legacy/                     the untouched 2024 app.py, app2.py, notebooks, runs
 stack. The current extractors produce values on a comparable 0–100 scale but not
 identical. The notebook's Part A has an opt-in cell to regenerate the table from
 the raw images with the offline pipeline and retrain.
-
-## License
-
-MIT
