@@ -1,1 +1,5 @@
+# apt packages for Streamlit Community Cloud.
+# tesseract-ocr: only needed if you set ocr.engine: tesseract in config.yaml
+# default-jre:   only needed for language_tool_python grammar checking
+tesseract-ocr
 default-jre

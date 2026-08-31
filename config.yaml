@@ -1,0 +1,44 @@
+# Central configuration for the dyslexia screening pipeline.
+# Paths are relative to the repository root.
+
+paths:
+  linguistic_features_csv: data/linguistic_features.csv
+  samples_dir: data/samples
+  gambo_dir: data/gambo            # populated by scripts/prepare_gambo.py
+  gambo_zip: Gambo.zip
+  models_dir: models
+
+ocr:
+  engine: easyocr                  # easyocr | tesseract | null
+  languages: [en]
+  min_confidence: 0.30
+
+features:
+  # Column order the tabular model expects. Do not reorder.
+  names:
+    - spelling_accuracy
+    - grammatical_accuracy
+    - percentage_of_corrections
+    - phonetic_accuracy
+
+tabular:
+  model_path: models/tabular/model.joblib
+  target: presence_of_dyslexia
+  test_size: 0.2
+  cv_folds: 5
+  random_state: 42
+
+image:
+  yolo_weights: models/image/yolo_samples_best_v3.pt
+  gambo_weights: models/image/gambo_convnext.pt
+  gambo_classes: [Corrected, Normal, Reversal]
+  img_size: 224
+
+# How the individual signals are blended into one risk score in [0, 1].
+ensemble:
+  weights:
+    tabular: 0.5
+    yolo: 0.35
+    gambo: 0.15
+  # Gambo contributes risk = share of letters predicted Reversal or Corrected.
+  decision_threshold: 0.5
